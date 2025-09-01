@@ -2,21 +2,29 @@
 
 Este es el proyecto final del grupo 1 para la materia TUI.
 
-## Descripción
-
-Una breve descripción del propósito del proyecto y sus principales funcionalidades.
-
-## Instalación
+## Instalación y puesta en marcha
 
 1. Clona el repositorio:
    ```
    git clone https://github.com/josemanuelborras/tui-proyectoFinal.git
    ```
-2. Instala las dependencias necesarias.
+2. Ingresa a la carpeta del proyecto:
+   ```
+   cd tui-proyectoFinal
+   ```
+3. Instala Django (si no lo tienes):
+   ```
+   pip install django
+   ```
+4. Ejecuta el servidor de desarrollo:
+   ```
+   python manage.py runserver
+   ```
+5. Abre tu navegador y accede a [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ## Uso
 
-Explica cómo ejecutar el proyecto, incluyendo comandos básicos.
+Una vez iniciado el servidor, podrás ver la página de bienvenida de Django. Desde aquí puedes comenzar a desarrollar tu aplicación.
 
 ## Contribución
 
