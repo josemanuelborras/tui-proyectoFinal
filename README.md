@@ -83,13 +83,13 @@ Esta organización permite reutilizar y mantener ordenados los elementos de UI/U
   - Crear un nuevo archivo .env en la carpeta raíz
 
 ### En desarrollo
-SECRET_KEY=clavesecreta
-DEBUG=True
-DB_NAME=gestionAcademica
-DB_USER=root
-DB_PASSWORD=1234
-DB_HOST=localhost
-DB_PORT=3306
+- SECRET_KEY=clavesecreta
+- DEBUG=True
+- DB_NAME=gestionAcademica
+- DB_USER=root
+- DB_PASSWORD=1234
+- DB_HOST=localhost
+- DB_PORT=3306
 
 ## Contribución
 
