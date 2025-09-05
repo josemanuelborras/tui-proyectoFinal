@@ -120,6 +120,10 @@ python manage.py migrate
 - DB_HOST=localhost
 - DB_PORT=3306
 
+## Rutas
+### Admin
+- /adminPanel
+
 ## Contribución
 
 Si deseas contribuir, por favor haz un fork del repositorio y envía un pull request.
