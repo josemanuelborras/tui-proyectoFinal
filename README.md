@@ -57,6 +57,17 @@ Una vez iniciado el servidor, podrás ver la página de bienvenida de Django. De
 
 Esta organización permite reutilizar y mantener ordenados los elementos de UI/UX en todo el proyecto.
 
+## Antes de cada actualizacion
+Correr los comandos:
+```
+python manage.py makemigrations
+```
+- Detecta los cambios en tus modelos y crea archivos de migración.
+```
+python manage.py migrate
+```
+- Aplica esos cambios a la base de datos, creando o actualizando las tablas según corresponda.
+
 ## Integración con la base de datos
 ### Instalar MySQL Server
    - [https://dev.mysql.com/downloads/mysql/](https://dev.mysql.com/downloads/mysql/)
@@ -77,6 +88,24 @@ Esta organización permite reutilizar y mantener ordenados los elementos de UI/U
    - Correr el comando
    ```
    python manage.py migrate para crear y actualizar las tablas
+   ```
+
+### Crear tabla Admin
+1. Correr el comando e ingresar la constraseña:
+   ```
+   mysql -u root -p
+   ```
+2. Acceder a la base de datos gestionAcademica:
+   ```
+   USE gestionAcademica
+   ```
+3. Insertar datos de usuario y constraseña:
+   ```
+   INSERT INTO adminPanel_admin (usuario, password) VALUES ('usuario', 'constraseña');
+   ```
+4. Controlar que los datos existan:
+   ```
+   select * from adminpanel_admin;
    ```
 
 ## Variables de entorno

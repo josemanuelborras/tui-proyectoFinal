@@ -25,3 +25,7 @@ def admin_home(request):
     if not request.session.get('admin_id'):
         return redirect('admin_login')
     return render(request, 'adminPanel/home.html')
+
+def logout_view(request):
+    request.session.flush()
+    return redirect('admin_login')
