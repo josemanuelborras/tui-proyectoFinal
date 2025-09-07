@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .login import LoginForm
 from .models import Admin
 
+# import de carreras
+from carrera.models import Carrera
+
 def login_view(request):
     if request.session.get('admin_id'):
         return redirect('admin_home')
@@ -29,3 +32,10 @@ def admin_home(request):
 def logout_view(request):
     request.session.flush()
     return redirect('admin_login')
+
+# listado de carreras
+def carreras_list(request):
+    if not request.session.get('admin_id'):
+        return redirect('admin_login')
+    carreras = Carrera.objects.all()
+    return render(request, 'adminPanel/carreras_list.html', {'carreras': carreras})
