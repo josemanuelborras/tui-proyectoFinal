@@ -33,6 +33,22 @@ main {
   background: #1565c0;
 }
 
+.btn-secondary {
+  background: #555;
+}
+
+.btn-secondary:hover {
+  background: #333;
+}
+
+.btn-delete {
+  background: #d32f2f;
+}
+
+.btn-delete:hover {
+  background: #b71c1c;
+}
+
 .optionsBtn {
   background: #cc363e;
   color: white;
@@ -46,4 +62,19 @@ main {
 
 .optionsBtn:hover {
   background: #b32d34;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.error {
+  margin: 10px;
+  color: red;
+  font-weight: bold;
 }

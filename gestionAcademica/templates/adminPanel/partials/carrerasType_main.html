@@ -1,0 +1,48 @@
+<main>
+  <h2>Tipos de Carreras</h2>
+  <div class="tableContainer">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for carrerasType in tipos_carrera %}
+        <tr>
+          <td class="id">{{ carrerasType.id }}</td>
+          <td class="nombre">{{ carrerasType.nombre }}</td>
+          <td class="acciones">
+            <form
+              method="post"
+              action="{% url 'carreras_type_delete' carrerasType.id %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3">No hay Tipos de Carreras registradas.</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="3" class="addNew">
+            <h3>Agregar Tipo de Carrera</h3>
+            <form method="post">
+              {% csrf_token %} {{ form.nombre }} {% if form.nombre.errors %}
+              <div class="error">{{ form.nombre.errors.0 }}</div>
+              {% endif %}
+              <button class="btn btn-secondary" type="submit">Agregar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <a href="{% url 'admin_home' %}">Volver al panel</a>
+</main>

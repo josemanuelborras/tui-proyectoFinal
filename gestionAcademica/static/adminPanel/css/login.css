@@ -75,6 +75,10 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: #02666a;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

@@ -30,7 +30,7 @@ def admin_home(request):
     admin = Admin.objects.get(id=request.session['admin_id'])
     mainMenuOptions = [
         {'id': 1, 'nombre': 'Carreras', 'ruta': 'carreras_list'},
-        {'id': 2, 'nombre': 'Tipo de Carreras', 'ruta': 'carreras_types'},
+        {'id': 2, 'nombre': 'Tipo de Carreras', 'ruta': 'carreras_type'},
         {'id': 3, 'nombre': 'Materias', 'ruta': 'materias_list'},
         {'id': 4, 'nombre': 'Clases', 'ruta': 'clases_list'},
         {'id': 5, 'nombre': 'Aulas', 'ruta': 'aulas_list'},
@@ -43,25 +43,3 @@ def admin_home(request):
 def logout_view(request):
     request.session.flush()
     return redirect('admin_login')
-
-# listado de carreras
-def carreras_list(request):
-    if not request.session.get('admin_id'):
-        return redirect('admin_login')
-    carreras = Carrera.objects.all()
-    admin = Admin.objects.get(id=request.session['admin_id'])
-    return render(request, 'adminPanel/carreras_list.html', {
-        'carreras': carreras,
-        'usuario_logueado': admin.usuario
-    })
-
-# listado de tipos de carreras
-# def carreras_types(request):
-#     if not request.session.get('admin_id'):
-#         return redirect('admin_login')
-#     tipos_carrera = Carrera.TIPO_CARRERA_CHOICES
-#     admin = Admin.objects.get(id=request.session['admin_id'])
-#     return render(request, 'adminPanel/carreras_types.html', {
-#         'tipos_carrera': tipos_carrera,
-#         'usuario_logueado': admin.usuario
-#     })
