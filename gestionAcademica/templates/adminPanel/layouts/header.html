@@ -1,10 +1,9 @@
 <header>
   <nav>
-    <a href="{% url 'configuracion_usuario' %}">
-      <button>Usuario</button>
-    </a>
-    <a href="{% url 'admin_logout' %}">
-      <button>Cerrar sesión</button>
-    </a>
+    <h1>Gestión Académica</h1>
+    <ul>
+      <li>{{ usuario_logueado }}</li>
+      <li><a href="{% url 'admin_logout' %}" class="btn">Cerrar sesión</a></li>
+    </ul>
   </nav>
 </header>

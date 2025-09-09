@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Listado de Carreras</title>
-</head>
-<body>
-    <h1>Carreras</h1>
-    <ul>
-        {% for carrera in carreras %}
-            <li>{{ carrera.nombre }}</li>
-        {% empty %}
-            <li>No hay carreras registradas.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'admin_home' %}">Volver al panel</a>
-</body>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'adminPanel/css/header.css' %}" />
+  </head>
+  <body>
+    {% include "adminPanel/layouts/header.html" %}
+    {% include "adminPanel/partials/carreras_main.html" %}
+  </body>
 </html>

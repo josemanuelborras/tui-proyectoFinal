@@ -1,0 +1,11 @@
+<main>
+  <h1>Carreras</h1>
+  <ul>
+    {% for carrera in carreras %}
+    <li>{{ carrera.nombre }}</li>
+    {% empty %}
+    <li>No hay carreras registradas.</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'admin_home' %}">Volver al panel</a>
+</main>
