@@ -26,12 +26,37 @@ def carreras_type(request):
         'form': form
     })
 
-
+# eliminar tipo de carrera
 def carreras_type_delete(request, id):
     if request.method == 'POST':
         tipo = get_object_or_404(CarrerasType, id=id)
         tipo.delete()
     return redirect('carreras_type')
+
+# editar tipo de carrera
+def carreras_type_edit(request, id):
+    if not request.session.get('admin_id'):
+        return redirect('admin_login')
+    admin = Admin.objects.get(id=request.session['admin_id'])
+    tipo = get_object_or_404(CarrerasType, id=id)
+    tipos_carrera = CarrerasType.objects.all().order_by('id')
+
+    if request.method == 'POST':
+        edit_form = CarrerasTypeForm(request.POST, instance=tipo)
+        if edit_form.is_valid():
+            edit_form.save()
+            return redirect('carreras_type')
+        
+        form = CarrerasTypeForm() 
+        return render(request, 'adminPanel/carreras_type.html', {
+            'tipos_carrera': tipos_carrera,
+            'usuario_logueado': admin.usuario,
+            'form': form,
+            'edit_form': edit_form,
+            'edit_id': id,
+        })
+    else:
+        return redirect('carreras_type')
 
 # listado de carreras
 def carreras_list(request):
