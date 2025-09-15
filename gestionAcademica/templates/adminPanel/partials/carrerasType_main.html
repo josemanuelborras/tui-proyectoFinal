@@ -1,4 +1,6 @@
+
 <main>
+  <a href="{% url 'admin_home' %}">Volver al panel</a>
   <h2>Tipos de Carreras</h2>
   <div class="tableContainer">
     <table>
@@ -21,31 +23,30 @@
               id="edit-toggle-{{ carrerasType.id }}"
               class="edit-toggle"
               style="display: none"
+              {% if edit_id and edit_id == carrerasType.id %}checked{% endif %}
             />
             <label
               for="edit-toggle-{{ carrerasType.id }}"
-              class="btn"
+              class="btn-editar"
               style="cursor: pointer"
-              >Editar</label
-            >
+            >Editar</label>
             <form
               method="post"
               action="{% url 'carreras_type_edit' carrerasType.id %}"
               class="edit-form"
             >
               {% csrf_token %}
-              <div class="form-container">
-                {% if edit_id and edit_id == carrerasType.id %}
-                {{ edit_form.nombre }} {% else %}
+              {% if edit_id and edit_id == carrerasType.id %}
+                {{ edit_form.nombre }}
+              {% else %}
                 <input
                   type="text"
                   name="nombre"
                   value="{{ carrerasType.nombre }}"
-                  class="input-oculto input"
+                  class="input-oculto"
                 />
-                {% endif %}
-                <button type="submit" class="btn btn-primary">Guardar</button>
-              </div>
+              {% endif %}
+              <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
           </td>
           <td>
@@ -65,24 +66,21 @@
             <div class="error">{{ edit_form.nombre.errors.0 }}</div>
           </td>
         </tr>
-        {% endif %} {% empty %}
+        {% endif %}
+        {% empty %}
         <tr>
           <td colspan="4">No hay Tipos de Carreras registradas.</td>
         </tr>
         {% endfor %}
         <tr>
           <td colspan="4" class="addNew">
-            <h3>Agregar Tipo de Carrera</h3>
-            <form method="post">
-              {% csrf_token %} {{ form.nombre }} {% if form.nombre.errors %}
-              <div class="error">{{ form.nombre.errors.0 }}</div>
-              {% endif %}
-              <button class="btn btn-secondary" type="submit">Agregar</button>
+            <form method="post" action="" class="add-form">
+              {% csrf_token %} {{ form.nombre }}
+              <button type="submit" class="btn btn-secondary">Agregar</button>
             </form>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <a href="{% url 'admin_home' %}">Volver al panel</a>
 </main>
