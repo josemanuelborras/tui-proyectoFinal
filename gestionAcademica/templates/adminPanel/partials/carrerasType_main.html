@@ -6,7 +6,8 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Acciones</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
@@ -14,24 +15,63 @@
         <tr>
           <td class="id">{{ carrerasType.id }}</td>
           <td class="nombre">{{ carrerasType.nombre }}</td>
-          <td class="acciones">
+          <td>
+            <input
+              type="checkbox"
+              id="edit-toggle-{{ carrerasType.id }}"
+              class="edit-toggle"
+              style="display: none"
+            />
+            <label
+              for="edit-toggle-{{ carrerasType.id }}"
+              class="btn"
+              style="cursor: pointer"
+              >Editar</label
+            >
+            <form
+              method="post"
+              action="{% url 'carreras_type_edit' carrerasType.id %}"
+              class="edit-form"
+            >
+              {% csrf_token %}
+              <div class="form-container">
+                {% if edit_id and edit_id == carrerasType.id %}
+                {{ edit_form.nombre }} {% else %}
+                <input
+                  type="text"
+                  name="nombre"
+                  value="{{ carrerasType.nombre }}"
+                  class="input-oculto input"
+                />
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </td>
+          <td>
             <form
               method="post"
               action="{% url 'carreras_type_delete' carrerasType.id %}"
               style="display: inline"
             >
               {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Eliminar</button>
+              <button type="submit" class="btn btn-danger">X</button>
             </form>
           </td>
         </tr>
-        {% empty %}
+        {% if edit_id and edit_id == carrerasType.id and edit_form.nombre.errors %}
         <tr>
-          <td colspan="3">No hay Tipos de Carreras registradas.</td>
+          <td colspan="4">
+            <div class="error">{{ edit_form.nombre.errors.0 }}</div>
+          </td>
+        </tr>
+        {% endif %} {% empty %}
+        <tr>
+          <td colspan="4">No hay Tipos de Carreras registradas.</td>
         </tr>
         {% endfor %}
         <tr>
-          <td colspan="3" class="addNew">
+          <td colspan="4" class="addNew">
             <h3>Agregar Tipo de Carrera</h3>
             <form method="post">
               {% csrf_token %} {{ form.nombre }} {% if form.nombre.errors %}
