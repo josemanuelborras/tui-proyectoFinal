@@ -1,11 +1,116 @@
 <main>
-  <h1>Carreras</h1>
-  <ul>
-    {% for carrera in carreras %}
-    <li>{{ carrera.nombre }}</li>
-    {% empty %}
-    <li>No hay carreras registradas.</li>
-    {% endfor %}
-  </ul>
   <a href="{% url 'admin_home' %}">Volver al panel</a>
+  <h2>Carreras</h2>
+  <div class="tableContainer">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Tipo de Carrera</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for carrera in carreras %}
+        <tr>
+          <td>{{ carrera.id }}</td>
+          <td>{{ carrera.nombre }}</td>
+          <td>
+            {% if carrera.tipo %}
+              {{ carrera.tipo.nombre }}
+            {% else %}
+              Sin tipo
+            {% endif %}
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              id="edit-toggle-{{ carrera.id }}"
+              class="edit-toggle"
+              style="display: none"
+              {% if edit_id and edit_id == carrera.id %}checked{% endif %}
+            />
+            <label
+              for="edit-toggle-{{ carrera.id }}"
+              class="btn-editar"
+              style="cursor: pointer"
+            >Editar</label>
+            <form
+              method="post"
+              action="{% url 'carrera_edit' carrera.id %}"
+              class="edit-form"
+            >
+              {% csrf_token %}
+              <div class="form-container">
+                {% if edit_id and edit_id == carrera.id %}
+                  {{ edit_form.nombre }}
+                  {{ edit_form.tipo }}
+                  {% if edit_form.nombre.errors %}
+                    <div class="error">{{ edit_form.nombre.errors.0 }}</div>
+                  {% endif %}
+                  {% if edit_form.tipo.errors %}
+                    <div class="error">{{ edit_form.tipo.errors.0 }}</div>
+                  {% endif %}
+                {% else %}
+                  <input
+                    type="text"
+                    name="nombre"
+                    value="{{ carrera.nombre }}"
+                    class="input-oculto"
+                  />
+                  <select name="tipo" class="input-oculto">
+                    {% for tipo in tipos_carrera %}
+                      <option value="{{ tipo.id }}" {% if carrera.tipo and carrera.tipo.id == tipo.id %}selected{% endif %}>{{ tipo.nombre }}</option>
+                    {% endfor %}
+                  </select>
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </td>
+          <td>
+            <form
+              method="post"
+              action="{% url 'carrera_delete' carrera.id %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">X</button>
+            </form>
+          </td>
+        </tr>
+        {% if edit_id and edit_id == carrera.id %}
+          {% if edit_form.nombre.errors or edit_form.tipo.errors %}
+            <tr>
+              <td colspan="5">
+                {% if edit_form.nombre.errors %}
+                  <div class="error">{{ edit_form.nombre.errors.0 }}</div>
+                {% endif %}
+                {% if edit_form.tipo.errors %}
+                  <div class="error">{{ edit_form.tipo.errors.0 }}</div>
+                {% endif %}
+              </td>
+            </tr>
+          {% endif %}
+        {% endif %}
+        {% empty %}
+        <tr>
+          <td colspan="5">No hay carreras registradas.</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="5" class="addNew">
+            <form method="post" action="{% url 'carrera_create' %}" class="add-form">
+              {% csrf_token %}
+              {{ form.nombre }}
+              {{ form.tipo }}
+              <button type="submit" class="btn btn-secondary">Agregar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>

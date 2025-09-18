@@ -78,3 +78,23 @@ main {
   color: red;
   font-weight: bold;
 }
+
+.edit-form {
+  display: none;
+}
+.edit-toggle:checked ~ .edit-form {
+  display: inline-block;
+  position: absolute;
+  background: white;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
