@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'index',
     'adminPanel',
     'carrera',
+    'materia',
 ]
 
 MIDDLEWARE = [
