@@ -16,7 +16,7 @@
         {% for carrera in carreras %}
         <tr>
           <td>{{ carrera.id }}</td>
-          <td>{{ carrera.nombre }}</td>
+          <td><a href="{% url 'carrera_detail' carrera.id %}">{{ carrera.nombre }}</a></td>
           <td>
             {% if carrera.tipo %}
               {{ carrera.tipo.nombre }}
@@ -49,7 +49,7 @@
                   {{ edit_form.tipo }}
                   {% if edit_form.nombre.errors %}
                     <div class="error">{{ edit_form.nombre.errors.0 }}</div>
-                  {% endif %}
+                {% endif %}
                   {% if edit_form.tipo.errors %}
                     <div class="error">{{ edit_form.tipo.errors.0 }}</div>
                   {% endif %}
@@ -58,7 +58,7 @@
                     type="text"
                     name="nombre"
                     value="{{ carrera.nombre }}"
-                    class="input-oculto"
+                    class="input-oculto input"
                   />
                   <select name="tipo" class="input-oculto">
                     {% for tipo in tipos_carrera %}

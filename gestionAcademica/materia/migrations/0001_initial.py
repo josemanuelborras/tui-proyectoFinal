@@ -12,11 +12,10 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Admin',
+            name='Materia',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('usuario', models.CharField(max_length=50, unique=True)),
-                ('password', models.CharField(max_length=128)),
+                ('nombre', models.CharField(max_length=100, unique=True)),
             ],
         ),
     ]

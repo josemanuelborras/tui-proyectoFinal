@@ -8,4 +8,7 @@ urlpatterns = [
     path('carreras/crear/', views.carrera_create, name='carrera_create'),
     path('carreras/editar/<int:id>/', views.carrera_edit, name='carrera_edit'),
     path('carreras/eliminar/<int:id>/', views.carrera_delete, name='carrera_delete'),
+    path('carrera/<int:carrera_id>/', views.carrera_detail, name='carrera_detail'),
+    path('carrera/<int:carrera_id>/agregar-materia/', views.carrera_agregar_materia, name='carrera_agregar_materia'),
+    path('carrera/<int:carrera_id>/quitar-materia/<int:materia_id>/', views.carrera_quitar_materia, name='carrera_quitar_materia'),
 ]
