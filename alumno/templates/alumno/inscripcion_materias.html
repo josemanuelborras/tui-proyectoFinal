@@ -1,0 +1,11 @@
+<h2>Seleccionar materias para {{ carrera.nombre }}</h2>
+<form method="post">
+  {% csrf_token %}
+  {% for cm in materias %}
+    <label>
+      <input type="checkbox" name="materias" value="{{ cm.materia.id }}">
+      {{ cm.materia.nombre }}
+    </label><br>
+  {% endfor %}
+  <button type="submit">Finalizar inscripción</button>
+</form>

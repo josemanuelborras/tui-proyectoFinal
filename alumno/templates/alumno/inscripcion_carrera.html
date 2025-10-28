@@ -1,0 +1,11 @@
+<h2>Inscripción a carrera</h2>
+<form method="post">
+  {% csrf_token %}
+  <h3>Datos del alumno</h3>
+  {{ alumno_form.as_p }}
+
+  <h3>Seleccionar carrera</h3>
+  {{ carrera_form.as_p }}
+
+  <button type="submit">Continuar</button>
+</form>
