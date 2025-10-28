@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'adminPanel/css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'adminPanel/css/mainMenu.css' %}" />
+  </head>
+  <body>
+    {% include "adminPanel/layouts/header.html" %}
+    <main>
+      <h1>Menu Principal</h1>
+      <div class="optionsContainer">
+        <h2>Opciones:</h2>
+        <ul>
+          {% for opcion in mainMenuOptions %}
+          <li>
+            <a class="optionsBtn">{{ opcion.nombre }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><a href="{% url 'carreras_type' %}">Tipos de Carrera</a></li>
+          <li><a href="{% url 'carreras_list' %}">Carreras</a></li>
+          <li><a href="{% url 'materias_list' %}">Materias</a></li>
+        </ul>
+      </div>
+    </main>
+  </body>
+</html>

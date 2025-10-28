@@ -1,0 +1,15 @@
+<header {% if clase_header %}class="{{ clase_header }}" {% endif %}>
+  <h1>Sistema Académico</h1>
+  {% include "components/button.html" with texto="Salir" metodo="alert('Sesión cerrada')" %}
+    <a href="/alumno/inscripcion/">
+        <button>INSCRIPCIÓN</button>
+    </a>
+    <style>
+  body {
+    background-color: #007BFF; /* azul brillante */
+    color: white; /* texto blanco para contraste */
+    font-family: Arial, sans-serif;
+  }
+</style>
+
+</header>

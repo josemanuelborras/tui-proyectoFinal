@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ carrera.nombre }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'adminPanel/css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'adminPanel/css/carrera.css' %}" />
+  </head>
+  <body>
+    {% include "adminPanel/layouts/header.html" %}
+    <main>
+      <a href="{% url 'carreras_list' %}">← Volver al listado</a>
+      <h1>{{ carrera.nombre }}</h1>
+      <div class="materias-carrera">
+        <h3>Materias de la Carrera</h3>
+        {% if carrera_materias %}
+          <div class="tableContainer">
+            <table>
+              <thead>
+                <tr>
+                  <th>Materia</th>
+                  <th>Año</th>
+                  <th>Cuatrimestre</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for carrera_materia in carrera_materias %}
+                  <tr>
+                    <td>{{ carrera_materia.materia.nombre }}</td>
+                    <td>{{ carrera_materia.anio }}°</td>
+                    <td>{{ carrera_materia.cuatrimestre }}° Cuatrimestre</td>
+                    <td>
+                      <form method="post" action="{% url 'carrera_quitar_materia' carrera.id carrera_materia.materia.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Quitar</button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <p>No hay materias asignadas a esta carrera.</p>
+        {% endif %}
+      </div>
+      <div class="carrera-actions">
+        <form method="post" action="{% url 'carrera_agregar_materia' carrera.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="materia_id">Materia:</label>
+            <select name="materia_id" id="materia_id" required>
+              <option value="">Seleccionar materia...</option>
+              {% for materia in materias_disponibles %}
+                <option value="{{ materia.id }}">{{ materia.nombre }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="anio">Año:</label>
+            <input type="number" name="anio" id="anio" placeholder="Año" min="1" max="6" required>
+          </div>
+          <div class="form-group">
+            <label for="cuatrimestre">Cuatrimestre:</label>
+            <input type="number" name="cuatrimestre" id="cuatrimestre" placeholder="Cuatrimestre" min="1" max="2" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Agregar Materia</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

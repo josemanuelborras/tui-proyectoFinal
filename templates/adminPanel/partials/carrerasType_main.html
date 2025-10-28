@@ -1,0 +1,90 @@
+
+<main>
+  <a href="{% url 'admin_home' %}">Volver al panel</a>
+  <h2>Tipos de Carreras</h2>
+  <div class="tableContainer">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for carrerasType in tipos_carrera %}
+        <tr>
+          <td class="id">{{ carrerasType.id }}</td>
+          <td class="nombre">{{ carrerasType.nombre }}</td>
+          <td>
+            <input
+              type="checkbox"
+              id="edit-toggle-{{ carrerasType.id }}"
+              class="edit-toggle"
+              style="display: none"
+              {% if edit_id and edit_id == carrerasType.id %}checked{% endif %}
+            />
+            <label
+              for="edit-toggle-{{ carrerasType.id }}"
+              class="btn-editar"
+              style="cursor: pointer"
+            >Editar</label>
+            <form
+              method="post"
+              action="{% url 'carreras_type_edit' carrerasType.id %}"
+              class="edit-form"
+            >
+              {% csrf_token %}
+              <div class="form-container">
+                {% if edit_id and edit_id == carrerasType.id %}
+                  {{ edit_form.nombre }}
+                {% else %}
+                  <input
+                    type="text"
+                    name="nombre"
+                    value="{{ carrerasType.nombre }}"
+                    class="input-oculto input"
+                  />
+                {% endif %}
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+            </form>
+          </td>
+          <td>
+            <form
+              method="post"
+              action="{% url 'carreras_type_delete' carrerasType.id %}"
+              style="display: inline"
+            >
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">X</button>
+            </form>
+          </td>
+        </tr>
+        {% if edit_id and edit_id == carrerasType.id %}
+          {% if edit_form.nombre.errors %}
+            <tr>
+              <td colspan="4">
+                <div class="error">{{ edit_form.nombre.errors.0 }}</div>
+              </td> 
+            </tr>
+          {% endif %}
+        {% endif %}
+        {% empty %}
+        <tr>
+          <td colspan="4">No hay Tipos de Carreras registradas.</td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="4" class="addNew">
+            <form method="post" action="" class="add-form">
+              {% csrf_token %} {{ form.nombre }}
+              <button type="submit" class="btn btn-secondary">Agregar</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
