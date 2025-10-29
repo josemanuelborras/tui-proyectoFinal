@@ -3,6 +3,7 @@ from . import views
 
 from carrera import views as carrera_views
 from materia import views as materia_views
+from alumnos import views as alumnos_views
 
 urlpatterns = [
     path('login/', views.login_view, name='admin_login'),
@@ -12,4 +13,5 @@ urlpatterns = [
     path('carrerasType/', carrera_views.carreras_type, name='carreras_type'),
     path('materias/', materia_views.materias_list, name='materias_list'),
     path('materias/crear/', materia_views.materia_create, name='materia_create'),
+    path('alumnos/', alumnos_views.alumnos_list, name='alumnos_list'),
 ]
