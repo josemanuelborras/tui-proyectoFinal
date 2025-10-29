@@ -1,11 +1,76 @@
-<h2>Seleccionar materias para {{ carrera.nombre }}</h2>
-<form method="post">
-  {% csrf_token %}
-  {% for cm in materias %}
-    <label>
-      <input type="checkbox" name="materias" value="{{ cm.materia.id }}">
-      {{ cm.materia.nombre }}
-    </label><br>
-  {% endfor %}
-  <button type="submit">Finalizar inscripción</button>
-</form>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inscripción de materias</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* celeste suave */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Seleccionar materias para {{ carrera.nombre }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for cm in materias %}
+                <label>
+                    <input type="checkbox" name="materias" value="{{ cm.materia.id }}">
+                    {{ cm.materia.nombre }}
+                </label>
+            {% endfor %}
+            <button type="submit">Finalizar inscripción</button>
+        </form>
+    </div>
+</body>
+</html>
