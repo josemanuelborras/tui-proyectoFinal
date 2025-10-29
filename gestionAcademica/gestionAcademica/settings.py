@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'adminPanel',
     'carrera',
     'materia',
+    'alumnos',
 ]
 
 MIDDLEWARE = [
