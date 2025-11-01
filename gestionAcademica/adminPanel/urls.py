@@ -32,4 +32,7 @@ urlpatterns = [
     # Alumnos
     path('alumnos/', alumnos_views.alumnos_list, name='alumnos_list'),
     path('alumnos/eliminar/<int:alumno_id>/', alumnos_views.alumno_delete, name='alumno_delete'),
+    path('alumno/<int:alumno_id>/', alumnos_views.alumno_detail, name='alumno_detail'),
+    path('alumno/<int:alumno_id>/inscribir-carrera/', alumnos_views.alumno_inscribir_carrera, name='alumno_inscribir_carrera'),
+    path('alumno/<int:alumno_id>/comprobante/<int:carrera_id>/', alumnos_views.alumno_comprobante, name='alumno_comprobante'),
 ]
