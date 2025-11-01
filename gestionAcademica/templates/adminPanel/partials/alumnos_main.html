@@ -24,7 +24,10 @@
           <td>
             <a href="#" class="btn btn-primary">Ver</a>
             <a href="#" class="btn btn-secondary">Editar</a>
-            <button class="btn btn-danger">Eliminar</button>
+            <form method="post" action="{% url 'alumno_delete' alumno.id %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
           </td>
         </tr>
         {% empty %}
