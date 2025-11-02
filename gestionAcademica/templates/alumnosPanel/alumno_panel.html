@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Alumno</title>
+</head>
+<body>
+    <h2>Bienvenido, {{ alumno.nombre }} {{ alumno.apellido }}</h2>
+    <p>DNI: {{ alumno.dni }}</p>
+    <p>Email: {{ alumno.email }}</p>
+    <!-- Aquí puedes agregar más opciones para que el alumno administre sus datos -->
+    <a href="{% url 'alumno_logout' %}">Cerrar sesión</a>
+</body>
+</html>

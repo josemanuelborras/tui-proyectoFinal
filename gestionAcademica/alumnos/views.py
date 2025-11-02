@@ -83,3 +83,27 @@ def alumno_comprobante(request, alumno_id, carrera_id):
     if pisa_status.err:
         return HttpResponse('Error al generar el PDF', status=500)
     return response
+
+def alumno_login(request):
+    error = None
+    if request.method == 'POST':
+        dni = request.POST.get('dni')
+        password = request.POST.get('password')
+        try:
+            alumno = Alumno.objects.get(dni=dni, password=password)
+            request.session['alumno_id'] = alumno.id
+            return redirect('alumno_panel')
+        except Alumno.DoesNotExist:
+            error = "DNI o contraseña incorrectos."
+    return render(request, 'alumnosPanel/alumno_login.html', {'error': error})
+
+def alumno_panel(request):
+    alumno_id = request.session.get('alumno_id')
+    if not alumno_id:
+        return redirect('alumno_login')
+    alumno = get_object_or_404(Alumno, id=alumno_id)
+    return render(request, 'alumnosPanel/alumno_panel.html', {'alumno': alumno})
+
+def alumno_logout(request):
+    request.session.pop('alumno_id', None)
+    return redirect('alumno_login')
