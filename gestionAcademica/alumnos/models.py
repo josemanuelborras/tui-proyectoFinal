@@ -43,7 +43,7 @@ class AlumnoMateria(models.Model):
     """Tabla de inscripciones de alumno en materias"""
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     materia = models.ForeignKey(Materia, on_delete=models.CASCADE)
-    carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)  # Para saber en qué carrera está cursando la materia
+    carrera = models.ForeignKey(Carrera, on_delete=models.CASCADE)
     estado = models.CharField(max_length=20, choices=[
         ('inscripto', 'Inscripto'),
         ('cursando', 'Cursando'),

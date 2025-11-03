@@ -4,6 +4,7 @@ from .models import Alumno, AlumnoCarrera, AlumnoMateria
 from carrera.models import Carrera, CarreraMateria
 from adminPanel.models import Admin
 from .alumnosForm import AlumnosForm
+from materia.models import Materia
 
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -102,7 +103,64 @@ def alumno_panel(request):
     if not alumno_id:
         return redirect('alumno_login')
     alumno = get_object_or_404(Alumno, id=alumno_id)
-    return render(request, 'alumnosPanel/alumno_panel.html', {'alumno': alumno})
+    carreras_inscripto = AlumnoCarrera.objects.filter(alumno=alumno)
+    return render(request, 'alumnosPanel/alumno_panel.html', {'alumno': alumno, 'carreras_inscripto': carreras_inscripto})
+
+def alumno_carrera_detail(request, carrera_id):
+    alumno_id = request.session.get('alumno_id')
+    if not alumno_id:
+        return redirect('alumno_login')
+    carrera = get_object_or_404(Carrera, id=carrera_id)
+    alumno = get_object_or_404(Alumno, id=alumno_id)
+    materias = CarreraMateria.objects.filter(carrera=carrera).order_by('anio', 'cuatrimestre')
+    materias_inscriptas = AlumnoMateria.objects.filter(alumno=alumno, carrera=carrera)
+    materias_estado = {am.materia.id: am for am in materias_inscriptas}
+    return render(request, 'alumnosPanel/carrera_detail.html', {
+        'carrera': carrera,
+        'materias': materias,
+        'materias_estado': materias_estado,
+    })
+
+def alumno_inscribir_materia(request, carrera_id, materia_id):
+    alumno_id = request.session.get('alumno_id')
+    if not alumno_id:
+        return redirect('alumno_login')
+    alumno = get_object_or_404(Alumno, id=alumno_id)
+    carrera = get_object_or_404(Carrera, id=carrera_id)
+    materia = get_object_or_404(Materia, id=materia_id)
+
+    # Verifica que el alumno esté inscripto en la carrera
+    if not AlumnoCarrera.objects.filter(alumno=alumno, carrera=carrera).exists():
+        return redirect('alumno_panel')
+
+    # Evita inscripciones duplicadas
+    if not AlumnoMateria.objects.filter(alumno=alumno, materia=materia, carrera=carrera).exists():
+        AlumnoMateria.objects.create(alumno=alumno, materia=materia, carrera=carrera)
+
+    return redirect('alumno_carrera_detail', carrera_id=carrera_id)
+
+def alumno_comprobante_materia(request, carrera_id, materia_id):
+    alumno_id = request.session.get('alumno_id')
+    if not alumno_id:
+        return redirect('alumno_login')
+    alumno = get_object_or_404(Alumno, id=alumno_id)
+    carrera = get_object_or_404(Carrera, id=carrera_id)
+    materia = get_object_or_404(Materia, id=materia_id)
+    inscripcion = get_object_or_404(AlumnoMateria, alumno=alumno, carrera=carrera, materia=materia)
+
+    html = render_to_string('alumnosPanel/comprobante_materia.html', {
+        'alumno': alumno,
+        'carrera': carrera,
+        'materia': materia,
+        'inscripcion': inscripcion,
+    })
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'inline; filename=comprobante_{alumno.dni}_{materia.nombre}.pdf'
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('Error al generar el PDF', status=500)
+    return response
 
 def alumno_logout(request):
     request.session.pop('alumno_id', None)

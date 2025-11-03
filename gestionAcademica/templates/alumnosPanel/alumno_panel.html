@@ -8,7 +8,18 @@
     <h2>Bienvenido, {{ alumno.nombre }} {{ alumno.apellido }}</h2>
     <p>DNI: {{ alumno.dni }}</p>
     <p>Email: {{ alumno.email }}</p>
-    <!-- Aquí puedes agregar más opciones para que el alumno administre sus datos -->
+    <h3>Carreras en las que estás inscripto</h3>
+    <ul>
+        {% for inscripcion in carreras_inscripto %}
+        <li>
+            <a href="{% url 'alumno_carrera_detail' inscripcion.carrera.id %}">
+                {{ inscripcion.carrera.nombre }}
+            </a>
+        </li>
+        {% empty %}
+        <li>No estás inscripto en ninguna carrera.</li>
+        {% endfor %}
+    </ul>
     <a href="{% url 'alumno_logout' %}">Cerrar sesión</a>
 </body>
 </html>

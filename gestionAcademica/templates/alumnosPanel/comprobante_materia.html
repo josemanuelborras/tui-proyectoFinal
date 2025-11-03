@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comprobante de Materia</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .comprobante { border: 1px solid #333; padding: 20px; width: 400px; margin: 0 auto; }
+        h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="comprobante">
+        <h2>Comprobante de Inscripción a Materia</h2>
+        <p><strong>Alumno:</strong> {{ alumno.apellido }}, {{ alumno.nombre }}</p>
+        <p><strong>DNI:</strong> {{ alumno.dni }}</p>
+        <p><strong>Carrera:</strong> {{ carrera.nombre }}</p>
+        <p><strong>Materia:</strong> {{ materia.nombre }}</p>
+        <p><strong>Estado:</strong> {{ inscripcion.estado }}</p>
+        {% if inscripcion.nota_final %}
+            <p><strong>Nota final:</strong> {{ inscripcion.nota_final }}</p>
+        {% endif %}
+        <p><strong>Fecha de inscripción:</strong> {{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% load dict_extras %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Carrera</title>
+</head>
+<body>
+    <h2>{{ carrera.nombre }}</h2>
+    <h3>Materias</h3>
+    <ul>
+    {% for materia in materias %}
+        <li>
+            {{ materia.materia.nombre }} - Año {{ materia.anio }}, {{ materia.cuatrimestre }}° cuatrimestre
+            {% with am=materias_estado|dict_get:materia.materia.id %}
+                {% if am %}
+                    <span style="margin-left:10px; color:blue;">
+                        Estado: {{ am.estado }}
+                        {% if am.nota_final %}
+                            | Nota: {{ am.nota_final }}
+                        {% endif %}
+                        <!-- Mostrar botón de comprobante solo si está inscripto (en cualquier estado) -->
+                        <a href="{% url 'alumno_comprobante_materia' carrera.id materia.materia.id %}" target="_blank" class="btn btn-info" style="margin-left:10px;">
+                            Imprimir comprobante
+                        </a>
+                    </span>
+                {% else %}
+                    <a href="{% url 'alumno_inscribir_materia' carrera.id materia.materia.id %}" class="btn btn-success" style="margin-left:10px;">
+                        Inscribirse
+                    </a>
+                {% endif %}
+            {% endwith %}
+        </li>
+        {% empty %}
+        <li>No hay materias registradas para esta carrera.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'alumno_panel' %}">Volver al panel</a>
+</body>
+</html>
