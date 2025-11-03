@@ -39,6 +39,7 @@
         {% endfor %}
         <tr>
           <td colspan="6" class="addNew">
+            <h3>Registrar Nuevo Alumno</h3>
             <form method="post" class="add-form">
               {% csrf_token %}
               {{ form.nombre }}

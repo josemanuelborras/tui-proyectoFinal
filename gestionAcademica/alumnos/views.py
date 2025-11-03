@@ -27,7 +27,7 @@ def alumnos_list(request):
             messages.success(request, f'Alumno {alumno.nombre} {alumno.apellido} registrado exitosamente.')
             return redirect('alumnos_list')
     
-    return render(request, 'adminPanel/partials/alumnos_main.html', {
+    return render(request, 'adminPanel/alumnos_list.html', {
         'alumnos': alumnos,
         'form': form,
         'usuario_logueado': admin.usuario
