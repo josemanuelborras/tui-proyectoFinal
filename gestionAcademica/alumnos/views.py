@@ -93,18 +93,21 @@ def alumno_login(request):
         try:
             alumno = Alumno.objects.get(dni=dni, password=password)
             request.session['alumno_id'] = alumno.id
-            return redirect('alumno_panel')
+            return redirect('alumnos_main')
         except Alumno.DoesNotExist:
             error = "DNI o contraseña incorrectos."
     return render(request, 'alumnosPanel/alumno_login.html', {'error': error})
 
-def alumno_panel(request):
+def alumno_main(request):
     alumno_id = request.session.get('alumno_id')
     if not alumno_id:
         return redirect('alumno_login')
     alumno = get_object_or_404(Alumno, id=alumno_id)
     carreras_inscripto = AlumnoCarrera.objects.filter(alumno=alumno)
-    return render(request, 'alumnosPanel/alumno_panel.html', {'alumno': alumno, 'carreras_inscripto': carreras_inscripto})
+    return render(request, 'alumnosPanel/layouts/alumno_info.html', {
+        'alumno': alumno,
+        'carreras_inscripto': carreras_inscripto
+    })
 
 def alumno_carrera_detail(request, carrera_id):
     alumno_id = request.session.get('alumno_id')
@@ -115,7 +118,7 @@ def alumno_carrera_detail(request, carrera_id):
     materias = CarreraMateria.objects.filter(carrera=carrera).order_by('anio', 'cuatrimestre')
     materias_inscriptas = AlumnoMateria.objects.filter(alumno=alumno, carrera=carrera)
     materias_estado = {am.materia.id: am for am in materias_inscriptas}
-    return render(request, 'alumnosPanel/carrera_detail.html', {
+    return render(request, 'alumnosPanel/layouts/carrera_detail.html', {
         'carrera': carrera,
         'materias': materias,
         'materias_estado': materias_estado,

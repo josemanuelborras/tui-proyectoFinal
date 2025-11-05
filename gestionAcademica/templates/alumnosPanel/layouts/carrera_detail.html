@@ -1,11 +1,8 @@
+{% extends "alumnosPanel/alumno_panel.html" %}
 {% load dict_extras %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Detalle de Carrera</title>
-</head>
-<body>
+{% block title %}Detalle de Carrera{% endblock %}
+{% block content %}
+<main>
     <h2>{{ carrera.nombre }}</h2>
     <h3>Materias</h3>
     <ul>
@@ -19,7 +16,6 @@
                         {% if am.nota_final %}
                             | Nota: {{ am.nota_final }}
                         {% endif %}
-                        <!-- Mostrar botón de comprobante solo si está inscripto (en cualquier estado) -->
                         <a href="{% url 'alumno_comprobante_materia' carrera.id materia.materia.id %}" target="_blank" class="btn btn-info" style="margin-left:10px;">
                             Imprimir comprobante
                         </a>
@@ -31,10 +27,10 @@
                 {% endif %}
             {% endwith %}
         </li>
-        {% empty %}
+    {% empty %}
         <li>No hay materias registradas para esta carrera.</li>
-        {% endfor %}
+    {% endfor %}
     </ul>
-    <a href="{% url 'alumno_panel' %}">Volver al panel</a>
-</body>
-</html>
+    <a href="{% url 'alumnos_main' %}">Volver al inicio</a>
+</main>
+{% endblock %}
