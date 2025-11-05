@@ -32,6 +32,7 @@ Universidad Nacional del Nordeste.
   - **django**: Framework principal (si no lo tienes)
   - **mysqlclient**: Conector para usar MySQL con Django
   - **python-dotenv**: Permite cargar variables de entorno desde un archivo `.env`
+  - **xhtml2pdf**: Permite generar archivos PDF a partir de templates HTML en Django.
    ```
    pip install django mysqlclient python-dotenv
    ```
