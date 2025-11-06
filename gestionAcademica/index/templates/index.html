@@ -1,15 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hola Mundo</title>
-  </head>
-  <body>
-    {% extends "layouts/home.html" %} {% block content %}
-    <h1>Hola mundo</h1>
-    {% endblock %}
-    {% block texto_footer %}
-      © 2025 Mi Facultad Personalizada
-    {% endblock %}
-  </body>
-</html>
+{% extends "layouts/home.html" %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+  <section class="landing">
+    <div class="landing__inner">
+      <h1 class="landing__title">Bienvenido a la Gestión Académica</h1>
+      <p class="landing__subtitle">Accede como administrador o como alumno</p>
+
+      <div class="landing__buttons" role="group" aria-label="Enlaces de acceso">
+        <a class="btn btn-primary btn-large" href="{% url 'admin_login' %}" aria-label="Acceso administrador" title="Acceso administrador">
+          <!-- icono llave -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path d="M21 8a5 5 0 10-9.9 1H11v2h2v2h2v-2h2v-2h1.1A5 5 0 0021 8z" fill="#fff"/>
+          </svg>
+          <span style="margin-left:8px;">Administrador</span>
+        </a>
+
+        <a class="btn btn-secondary btn-large" href="{% url 'alumno_login' %}" aria-label="Acceso alumnos" title="Acceso alumnos">
+          <!-- icono usuario -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z" fill="#fff"/>
+          </svg>
+          <span style="margin-left:8px;">Alumnos</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
+
+{% block texto_footer %}
+  © 2025 UNNE - Taller Integrador.Tecnicatura Universitaria en Informática
+{% endblock %}
