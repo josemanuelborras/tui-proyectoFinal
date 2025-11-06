@@ -18,3 +18,64 @@ div form {
     text-align: start;
     width: 300px;
 }
+
+/* Usar la misma imagen de fondo que el login de adminPanel */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    /* usar ruta relativa para que funcione con staticfiles sin hardcodear /static */
+    background: url("../img/loginBackground.jpeg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #222;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* overlay un poco menos oscuro para dejar más visibilidad de la imagen */
+    background: rgba(0,0,0,0.32);
+    z-index: 0;
+    pointer-events: none;
+}
+
+div, div form {
+    position: relative;
+    z-index: 1;
+}
+
+form {
+    background: rgba(255,255,255,0.95);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #02787d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover { background-color: #02666a; }
