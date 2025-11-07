@@ -18,17 +18,9 @@
         <ul>
           {% for opcion in mainMenuOptions %}
           <li>
-            <a class="optionsBtn">{{ opcion.nombre }}</a>
+            <a href="{% url opcion.ruta %}" class="optionsBtn">{{ opcion.nombre }}</a>
           </li>
           {% endfor %}
-        </ul>
-      </div>
-      <div>
-        <ul>
-          <li><a href="{% url 'carreras_type' %}">Tipos de Carrera</a></li>
-          <li><a href="{% url 'carreras_list' %}">Carreras</a></li>
-          <li><a href="{% url 'materias_list' %}">Materias</a></li>
-          <li><a href="{% url 'alumnos_list' %}">Alumnos</a></li>
         </ul>
       </div>
     </main>

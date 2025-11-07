@@ -34,7 +34,7 @@ Universidad Nacional del Nordeste.
   - **python-dotenv**: Permite cargar variables de entorno desde un archivo `.env`
   - **xhtml2pdf**: Permite generar archivos PDF a partir de templates HTML en Django.
    ```
-   pip install django mysqlclient python-dotenv
+   pip install django mysqlclient python-dotenv xhtml2pdf
    ```
    
 4. Ejecuta el servidor de desarrollo:

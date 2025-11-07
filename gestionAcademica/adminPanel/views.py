@@ -32,8 +32,7 @@ def admin_home(request):
         {'id': 1, 'nombre': 'Carreras', 'ruta': 'carreras_list'},
         {'id': 2, 'nombre': 'Tipo de Carreras', 'ruta': 'carreras_type'},
         {'id': 3, 'nombre': 'Materias', 'ruta': 'materias_list'},
-        {'id': 4, 'nombre': 'Clases', 'ruta': 'clases_list'},
-        {'id': 5, 'nombre': 'Aulas', 'ruta': 'aulas_list'},
+        {'id': 4, 'nombre': 'Alumnos', 'ruta': 'alumnos_list'},
     ]
     return render(request, 'adminPanel/home.html', {
         'usuario_logueado': admin.usuario,
